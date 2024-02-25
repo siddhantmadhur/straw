@@ -38,6 +38,6 @@ func openTmux(name string, dir string) tea.Cmd {
     c := exec.Command("tmux", "new", "-s", name, "-c", dir)
     
     return tea.ExecProcess(c ,func(err error) tea.Msg {
-        return editorFinishedMsg{err}
+        return tea.Quit()
     })
 }

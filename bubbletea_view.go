@@ -21,6 +21,7 @@ func (i item) FilterValue() string { return i.title }
 
 type model struct {
 	list list.Model
+    cursor int
 }
 
 func (m model) Init() tea.Cmd {
@@ -30,6 +31,11 @@ func (m model) Init() tea.Cmd {
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
+        if msg.String() == "k" {
+            m.cursor += 1
+        } else if msg.String() == "j" {
+            m.cursor -= 1
+        }
 		if msg.String() == "ctrl+c" {
 			return m, tea.Quit
 		} else if msg.String() == " " {
@@ -37,11 +43,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
             if err != nil {
                 panic(err)
             }
-            err = os.WriteFile("/tmp/location-of-dir.txt", []byte(homeDir + ""), 0644)
-            if err != nil {
-                panic(err)
-            }
-            return m, openTmux("project 1", homeDir  + "/github/project_1") 
+            return m, openTmux("Project 1",  homeDir + "/github/project_1") 
         }
 	case tea.WindowSizeMsg:
 		h, v := docStyle.GetFrameSize()
