@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"syscall"
 
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
@@ -34,7 +33,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if msg.String() == "ctrl+c" {
 			return m, tea.Quit
 		} else if msg.String() == " " {
-            syscall.Chdir("../project_1")
+            homeDir, err := os.UserHomeDir()
+            if err != nil {
+                panic(err)
+            }
+            err = os.WriteFile("/tmp/location-of-dir.txt", []byte(homeDir + ""), 0644)
+            if err != nil {
+                panic(err)
+            }
+            return m, tea.Quit
         }
 	case tea.WindowSizeMsg:
 		h, v := docStyle.GetFrameSize()
