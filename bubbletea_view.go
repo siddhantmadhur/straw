@@ -41,12 +41,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
             if err != nil {
                 panic(err)
             }
-            return m, tea.Quit
+            return m, openTmux("project 1", homeDir  + "/github/project_1") 
         }
 	case tea.WindowSizeMsg:
 		h, v := docStyle.GetFrameSize()
 		m.list.SetSize(msg.Width-h, msg.Height-v)
+	case editorFinishedMsg:
+		if msg.err != nil {
+			//m.err = msg.err
+			return m, tea.Quit
+		}
 	}
+    
 
 	var cmd tea.Cmd
 	m.list, cmd = m.list.Update(msg)

@@ -3,6 +3,9 @@ package main
 import (
 	"encoding/json"
 	"os"
+	"os/exec"
+
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 
@@ -27,4 +30,14 @@ func getEntries () ([]Entry, error) {
         //TODO: if error make file
     }
     return entries, nil
+}
+
+type editorFinishedMsg struct{ err error }
+
+func openTmux(name string, dir string) tea.Cmd {
+    c := exec.Command("tmux", "new", "-s", name, "-c", dir)
+    
+    return tea.ExecProcess(c ,func(err error) tea.Msg {
+        return editorFinishedMsg{err}
+    })
 }
