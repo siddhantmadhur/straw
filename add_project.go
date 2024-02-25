@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -28,7 +29,11 @@ func addProject(args []string) {
         Name: strings.Join(args, " "),
         Dir: strings.Replace(directory, homeDir, "~", 1),
     })
+    sort.Slice(globalEntries, func (i, j int) bool {
+        return globalEntries[i].Name  < globalEntries[j].Name
+    })
     reqBodyBytes := new(bytes.Buffer)
     json.NewEncoder(reqBodyBytes).Encode(globalEntries)
     os.WriteFile(homeDir + "/.straw", reqBodyBytes.Bytes() , 0744)
+    fmt.Println("Added successfully")
 }
