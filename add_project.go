@@ -23,5 +23,5 @@ func addProject(args []string) {
     })
     reqBodyBytes := new(bytes.Buffer)
     json.NewEncoder(reqBodyBytes).Encode(globalEntries)
-    os.WriteFile(homeDir + "/.bubble-finder", reqBodyBytes.Bytes() , 0744)
+    os.WriteFile(homeDir + "/.straw", reqBodyBytes.Bytes() , 0744)
 }

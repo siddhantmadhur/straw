@@ -31,7 +31,7 @@ func getEntries () []Entry {
     if err != nil {
         panic(err)
     }
-    data, err := os.ReadFile(homeDir + "/.bubble-finder")    
+    data, err := os.ReadFile(homeDir + "/.straw")    
     if err != nil {
         return []Entry{}
         //TODO: if error make file
