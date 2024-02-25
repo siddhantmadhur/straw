@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"os/exec"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -14,28 +15,46 @@ type Entry struct {
     Dir     string `json:"dir"`
 } 
 
+var globalEntries []Entry
 
-func getEntries () ([]Entry, error) {
+func fileExists(filename string) bool {
+   info, err := os.Stat(filename)
+   if os.IsNotExist(err) {
+      return false
+   }
+   return !info.IsDir()
+}
 
-    data, err := os.ReadFile("data.json")    
+func getEntries () []Entry {
+
+    homeDir, err := os.UserHomeDir()
     if err != nil {
-        return []Entry{}, err
+        panic(err)
+    }
+    data, err := os.ReadFile(homeDir + "/.bubble-finder")    
+    if err != nil {
+        return []Entry{}
         //TODO: if error make file
     }
     var entries []Entry
     err = json.Unmarshal(data, &entries)
-
+    globalEntries = entries
     if err != nil {
-        return []Entry{}, err
+        return []Entry{}
         //TODO: if error make file
     }
-    return entries, nil
+    return entries
 }
 
 type editorFinishedMsg struct{ err error }
 
-func openTmux(name string, dir string) tea.Cmd {
-    c := exec.Command("tmux", "new", "-s", name, "-c", dir)
+func openTmux(name string, directory string) tea.Cmd {
+    homeDir, err := os.UserHomeDir()
+    if err != nil {
+        panic(err)
+    }
+
+    c := exec.Command("tmux", "new", "-s", name, "-c", homeDir + strings.Replace(directory, "~", "", 1))
     
     return tea.ExecProcess(c ,func(err error) tea.Msg {
         return tea.Quit()
