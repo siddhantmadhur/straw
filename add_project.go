@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"os"
 	"strings"
 )
@@ -16,6 +17,12 @@ func addProject(args []string) {
     homeDir, err := os.UserHomeDir()
     if err != nil {
         panic(err)
+    }
+    for _, entry := range globalEntries {
+        if entry.Dir == strings.Replace(directory, homeDir, "~", 1) || entry.Name == strings.Join(args, " ") {
+            fmt.Println("This directory or name already exists")
+            os.Exit(1)
+        }
     }
     globalEntries = append(globalEntries, Entry{
         Name: strings.Join(args, " "),
