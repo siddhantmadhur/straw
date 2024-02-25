@@ -33,7 +33,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		if msg.String() == "ctrl+c" {
 			return m, tea.Quit
-		} else if msg.String() == " " {
+		} else if msg.String() == " " || msg.String() == "enter" {
             entry := globalEntries[m.list.Index()]
             return m, openTmux(entry.Name, entry.Dir) 
         }
