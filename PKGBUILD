@@ -9,15 +9,14 @@ makedepends=(git go)
 provides=(straw)
 conflicts=(straw)
 source=("straw::git+https://github.com/siddhantmadhur/straw.git")
-sha256sums=(f4236ac8dd7009d02d9541828be5c748cc976f81a7c280b0efdc32f57eb629a2)
+sha256sums=(SKIP)
 
 build() {
     cd straw
-    make
+    go build -o straw 
 }
 
 package() {
     cd straw
-    install -Dm755 straw -t "${pkgdir}/usr/bin"
-    install -Dm644 LICENCE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+    install -Dm755 straw -t "${pkgdir}/usr/bin" 
 }

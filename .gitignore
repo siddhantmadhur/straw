@@ -1,3 +1,7 @@
+
+#PKGBULID
 bin
 src
 straw
+*.zst
+pkg
