@@ -48,12 +48,23 @@ func getEntries () []Entry {
 
 type editorFinishedMsg struct{ err error }
 
-func openTmux(name string, directory string) tea.Cmd {
+func openTmux(name string) tea.Cmd {
     homeDir, err := os.UserHomeDir()
     if err != nil {
         panic(err)
     }
-
+    directory := ""
+    for _, entry := range globalEntries {
+        if entry.Name == name {
+            directory = entry.Dir
+            break
+        }
+    }
+    if directory == "" {
+        return tea.ExecProcess(nil ,func(err error) tea.Msg {
+            return tea.Quit()
+        })
+    }
     c := exec.Command("tmux", "new", "-A", "-s", name, "-c", homeDir + strings.Replace(directory, "~", "", 1))
     
     return tea.ExecProcess(c ,func(err error) tea.Msg {

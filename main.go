@@ -10,6 +10,7 @@ var version = "dev"
 func main() {
     args := os.Args
     entries := getEntries()
+
     if len(args) == 1 {
         runBubbletea(entries)    
         return;
