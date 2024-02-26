@@ -18,7 +18,6 @@ func removeProject(directory string) error {
     localEntries := getEntries()
     for _, entry := range localEntries {
         if entry.Dir != directory {
-            fmt.Println(entry.Dir)
             tempEntries = append(tempEntries, entry)
         } 
     }
