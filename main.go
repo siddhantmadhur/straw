@@ -28,6 +28,8 @@ func main() {
                     fmt.Println("Successfuly removed directory")
                     os.Exit(0)
                 }
+            default:
+                fmt.Printf("Command %s not recognized.\n", args[1])
         } 
         return;
     }
