@@ -1,4 +1,4 @@
-module bubble_finder
+module github.com/siddhantmadhur/straw
 
 go 1.22.0
 

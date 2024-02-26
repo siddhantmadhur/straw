@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-var version = "0.1.2"
+var version = "dev" 
 
 func main() {
     args := os.Args
@@ -18,7 +18,7 @@ func main() {
             case "--add", "-a":
                 addProject(args[2:])
             case "--version", "-v":
-                fmt.Printf("Straw \nby Siddhant Madhur \nVersion: v%s\n", version)
+                fmt.Printf("Straw \nby Siddhant Madhur \nVersion: %s\n", version)
 
         } 
         return;
