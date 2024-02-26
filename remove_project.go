@@ -22,9 +22,9 @@ func removeProject(directory string) error {
             tempEntries = append(tempEntries, entry)
         } 
     }
-    globalEntries = localEntries
+    globalEntries = tempEntries
     reqBodyBytes := new(bytes.Buffer)
-    json.NewEncoder(reqBodyBytes).Encode(localEntries)
+    json.NewEncoder(reqBodyBytes).Encode(tempEntries)
     err = os.WriteFile(homeDir + "/.straw", reqBodyBytes.Bytes() , 0744)
     
     return err 
