@@ -54,7 +54,7 @@ func openTmux(name string, directory string) tea.Cmd {
         panic(err)
     }
 
-    c := exec.Command("tmux", "new", "-s", name, "-c", homeDir + strings.Replace(directory, "~", "", 1))
+    c := exec.Command("tmux", "new", "-A", "-s", name, "-c", homeDir + strings.Replace(directory, "~", "", 1))
     
     return tea.ExecProcess(c ,func(err error) tea.Msg {
         return tea.Quit()
