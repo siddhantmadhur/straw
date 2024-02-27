@@ -1,14 +1,50 @@
 # Straw
 
-A simple-to-use, and pretty-to-look at cli tool to help enter project directories very easily.
+A simple-to-use, and pretty-to-look-at command-line interface tool to help enter project directories using Tmux very easily.
 
 Uses [Bubbletea](https://github.com/charmbracelet/bubbletea) for the heavy TUI stuff
 
-Features: 
+## Features: 
 - [X] View and open projects
-- [X] Automtically open Tmux in the chosen project
+- [X] Automatically open Tmux in the chosen project
 - [ ] Add projects
-  - [X] From within the project directory
-  - [ ] From anywhere in the terminal
+  - [X] From the command line (project directory)
+  - [ ] From the command line (any directory)
+  - [ ] From the TUI
 - [ ] Delete projects
+  - [X] From the command line
+  - [ ] From the TUI 
 
+## Support 
+| Linux | MacOS | Windows |
+| --- | --- |--- |
+| ✅ | ✅ | ❌ |
+
+
+## Installing Guide
+
+#### Dependencies:
+- Go
+- Tmux
+
+### Arch Linux
+Since Straw is on the [AUR](https://aur.archlinux.org/packages/straw) you can use yay or any other aur helper
+```
+yay -S straw 
+```
+
+### General Linux
+```
+git clone https://github.com/siddhantmadhur/straw
+cd straw
+go build -ldflags="-X 'main.version=$(git describe --tags --abbrev=0)'" -o ./bin/straw
+mv ./bin/straw /bin/straw
+```
+
+### General MacOS
+```
+git clone https://github.com/siddhantmadhur/straw
+cd straw
+go build -ldflags="-X 'main.version=$(git describe --tags --abbrev=0)'" -o ./bin/straw
+mv ./bin/straw /usr/local/bin/straw
+```
