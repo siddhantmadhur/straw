@@ -17,7 +17,7 @@ func main() {
     } else {
         switch(args[1]) {
             case "--add", "-a":
-                addProject(args[2:])
+                addProjectFromArgs(args[2:])
             case "--version", "-v":
                 fmt.Printf("Straw \nby Siddhant Madhur \nVersion: %s\n", version)
             case "--remove", "-r":
