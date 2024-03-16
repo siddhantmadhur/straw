@@ -1,4 +1,4 @@
-use std::env::home_dir;
+use std::{env::home_dir, str::FromStr};
 
 use walkdir::WalkDir;
 
@@ -19,14 +19,18 @@ pub fn get_all_files() -> Vec<String> {
     for entry in WalkDir::new(home) {
         match entry {
             Ok(d) => {
-                if &d.file_name().to_str().expect("Error in converting to string") == &".git" {
-                    git_projects.insert(0, d.path().to_str().clone())                }
+                if (&d).clone().file_name().to_str().expect("Error in converting to string") == ".git" {
+                    git_projects.insert(0, String::from_str(d.path().to_str().expect("Not str")).expect("Could not convert"));
+                }
             },
-            Err(err) => panic!("Error: {}", err)
+            Err(err) => () 
         }
     };
-    
 
-    vec![]
 
+    for prj in &git_projects {
+        println!("Prj: {}", prj);
+    }
+
+    git_projects
 }
