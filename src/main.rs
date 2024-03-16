@@ -1,3 +1,13 @@
+
+
+mod file_explorer;
+
 fn main() {
-    println!("Hello, world!");
+
+    let files = file_explorer::get_all_files(); 
+    println!("Hello, world: {}", files.len());
 }
+
+
+
+
