@@ -1,4 +1,4 @@
-use std::{env::home_dir, str::FromStr};
+use std::str::FromStr;
 
 use walkdir::WalkDir;
 
@@ -20,16 +20,22 @@ pub fn get_all_files(config: Config) -> Vec<String> {
             match entry {
                 Ok(d) => {
                     if (&d).file_name().to_str().expect("Error in converting to string") == ".git" {
-                        git_projects.insert(0, String::from_str(d.path().to_str().expect("Not str")).expect("Could not convert").replace("/.git", ""));
+                        git_projects.insert(
+                            0, 
+                            String::from_str(
+                                d.path()
+                                .to_str()
+                                .expect("Not str")
+                                )
+                            .expect("Could not convert")
+                            .replace("/.git", "")
+                            );
                     }
                 },
                 Err(_) => () 
             }
         };
     }
-
-
-
 
     for prj in &git_projects {
         println!("Prj: {}", prj);
