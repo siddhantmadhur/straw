@@ -10,7 +10,7 @@ fn main() {
 
 
     let start = Instant::now();
-    let files = file_explorer::get_all_files(); 
+    let files = file_explorer::get_all_files(cfg); 
     println!("Hello, world: {}", files.len());
 
     println!("Time elapsed: {:?}", start.elapsed());

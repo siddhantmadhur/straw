@@ -3,7 +3,7 @@ use std::{env::home_dir, fs, os, process::exit};
 
 
 pub struct Config {
-    directories: Vec<String>
+    pub directories: Vec<String>
 }
 
 
